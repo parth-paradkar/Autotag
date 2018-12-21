@@ -1,6 +1,8 @@
 import os
 import eyed3 as eyed3
 
+#The song name must be of the format "<artist> - <song name>.mp3"
+#create a directory that will store all the songs to be edited
 dir_path = '/home/parth/Music/tagging'
 os.chdir(dir_path)
 
