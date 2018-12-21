@@ -14,5 +14,7 @@ for song in os.listdir(dir_path):
     tag_song.tag.artist = unicode(song_artist, "utf-8")
     tag_song.tag.title = unicode(song_title, "utf-8")
     tag_song.tag.save()
+
+    os.rename(song, song_title)
     
     
