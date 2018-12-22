@@ -14,21 +14,28 @@ for song in os.listdir(dir_path):
     try:
         song_artist, song_title = song_name.split(' - ')
         tag_song = eyed3.load(song)
-        if (tag_song.tag == None):
-            tag_song.tag.artist = unicode(song_artist, "utf-8")
-            tag_song.tag.title = unicode(song_title, "utf-8")
-        if (tag_song.images == None):
+        if tag_song.tag == None:
+            print('Tags not available for the song {}'.format(song_name))
+        else:
             try:
-                image_name = '{}.jpg'.format(song_artist)
-                image_path = image_dirpath + image_name
-                cover_image = open(image_path, 'rb').read()
-                tag_song.tag.images.set(3, cover_image, 'image/jpeg')
-            except IOError:
-                print("The cover art for {} not found".format(artist_name))
-        tag_song.tag.save()
-        os.rename(song, song_title)
+                tag_song.tag.artist = unicode(song_artist, "utf-8")
+                tag_song.tag.title = unicode(song_title, "utf-8")
+            
+            except UnicodeDecodeError:
+                print("There are unrecognized characters in the file name of {}".format(song_name))
+            except AttributeError:
+                print("Attribute Error.")
+##            if (tag_song.images == None):
+##                try:
+##                    image_name = '{}.jpg'.format(song_artist)
+##                    image_path = image_dirpath + image_name
+##                    cover_image = open(image_path, 'rb').read()
+##                    tag_song.tag.images.set(3, cover_image, 'image/jpeg')
+##                except IOError:
+##                    print("The cover art for {} not found".format(artist_name))
+            tag_song.tag.save()
+            os.rename(song, song_title)
     except ValueError:
-        print("The song {} name is not in the proper format".format(song_name))
-    except UnicodeDecodeError:
-        print("There are unrecognized characters in the file name of {}".format(song_name))
+        print("The file name of {} is not in proper format".format(song_name))
+            
     
