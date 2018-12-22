@@ -25,14 +25,14 @@ for song in os.listdir(dir_path):
                 print("There are unrecognized characters in the file name of {}".format(song_name))
             except AttributeError:
                 print("Attribute Error.")
-##            if (tag_song.images == None):
-##                try:
-##                    image_name = '{}.jpg'.format(song_artist)
-##                    image_path = image_dirpath + image_name
-##                    cover_image = open(image_path, 'rb').read()
-##                    tag_song.tag.images.set(3, cover_image, 'image/jpeg')
-##                except IOError:
-##                    print("The cover art for {} not found".format(artist_name))
+            if (tag_song.images == None):
+                try:
+                    image_name = '{}.jpg'.format(song_artist)
+                    image_path = image_dirpath + image_name
+                    cover_image = open(image_path, 'rb').read()
+                    tag_song.tag.images.set(3, cover_image, 'image/jpeg')
+                except IOError:
+                    print("The cover art for {} not found".format(artist_name))
             tag_song.tag.save()
             os.rename(song, song_title)
     except ValueError:
