@@ -28,17 +28,20 @@ for song in os.listdir(dir_path):
             #Code to embed cover art in the mp3 file
             #if (tag_song.tag.images == None):
             try:
-                image_name = '{}.jpg'.format(song_artist)
+                image_name = '{}.jpeg'.format(song_artist)
                 print(image_name)
                 image_path = image_dirpath + image_name
                 print(image_path)
-                cover_image = open(image_path, 'rb').read()
+                image_file = open(image_path, 'rb')
+                
+                cover_image = image_file.read()
                 tag_song.tag.images.set(3, cover_image, 'image/jpeg')
                 print("***")
             except IOError:
                 print("The cover art for {} not found".format(song_artist))
             tag_song.tag.save()
             os.rename(song, song_title)
+            #print('renaming the song to {}'.format(song_title))
     except ValueError:
         print("The file name of {} is not in proper format".format(song_name))
             
